@@ -125,22 +125,29 @@ function formatDate(iso) {
 }
 
 .one-liner {
-  display: flex;
-  gap: 12px;
-  align-items: baseline;
-  max-width: 65ch;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  width: fit-content;
+  max-width: 76ch;
   margin: 0;
+  padding: 9px 12px 10px;
   color: var(--text-muted);
-  font-size: clamp(1rem, 1.4vw, 1.12rem);
-  line-height: 1.55;
+  background: color-mix(in oklch, var(--sun) 28%, var(--surface));
+  border-left: 3px solid var(--accent);
+  border-radius: 2px 7px 7px 2px;
+  font-family: var(--font-mono);
+  font-size: clamp(0.72rem, 1vw, 0.82rem);
+  letter-spacing: -0.012em;
+  line-height: 1.5;
   overflow-wrap: anywhere;
 }
 
 .tldr {
   flex: 0 0 auto;
   color: var(--accent-dark);
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.68rem;
   font-weight: 650;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -288,11 +295,7 @@ function formatDate(iso) {
     overflow-wrap: anywhere;
   }
 
-  .one-liner {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 7px;
-  }
+  .one-liner { width: 100%; }
 
   .talks { padding: 30px 0; }
   .project-footer { align-items: start; flex-direction: column; }
