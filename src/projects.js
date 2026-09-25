@@ -57,14 +57,22 @@ function resolveAsset(path) {
   return BASE + path
 }
 
+function parseTalkSections(body) {
+  const realTalk = body.match(/^## Real talk\s*$\n([\s\S]*?)(?=^## Nerd talk\s*$)/m)?.[1]?.trim()
+  const nerdTalk = body.match(/^## Nerd talk\s*$\n([\s\S]*)$/m)?.[1]?.trim()
+  return { realTalk, nerdTalk }
+}
+
 export const projects = Object.entries(modules)
   .map(([path, raw]) => {
     const { frontmatter, body } = parseFrontmatter(raw)
+    const { realTalk, nerdTalk } = parseTalkSections(body)
     const missing = [
       ['slug', frontmatter.slug],
       ['title', frontmatter.title],
       ['oneLiner', frontmatter.oneLiner],
-      ['description', body.trim()]
+      ['Real talk', realTalk],
+      ['Nerd talk', nerdTalk]
     ].filter(([, value]) => !value).map(([field]) => field)
 
     if (missing.length) {
@@ -74,7 +82,8 @@ export const projects = Object.entries(modules)
     return {
       ...frontmatter,
       screenshot: resolveAsset(frontmatter.screenshot),
-      bodyHtml: marked.parse(body),
+      realTalkHtml: marked.parse(realTalk),
+      nerdTalkHtml: marked.parse(nerdTalk),
       path
     }
   })
@@ -83,10 +92,6 @@ export const projects = Object.entries(modules)
     if (so !== 0) return so
     return (b.shippedAt || '').localeCompare(a.shippedAt || '')
   })
-
-export function getProject(slug) {
-  return projects.find(p => p.slug === slug)
-}
 
 export const STATUSES = {
   live:     { label: 'Live',     color: 'oklch(74% 0.14 151)' },

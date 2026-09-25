@@ -13,18 +13,18 @@ links:
   - { label: "Source", url: "#" }
 ---
 
-## Why I built it
+## Real talk
 
-The sessions are the closest thing to being in the room, so I wanted one place to track what I am watching and what feels worth returning to.
+The Config sessions are the closest thing to being in the room, and I did not want the interesting ones to become another row of forgotten browser tabs. I made one place to track what I am watching, what I learned, and which conversations feel worth returning to.
 
-## What it is
+This is not background entertainment. It is part of staying close to where design, product, brand, systems, AI workflows, and craft are moving. I have not watched everything yet, and that unfinished state is visible—the page grows as I work through the list.
 
-A dark notes page for the available Config 2026 session videos. Each talk has the speaker, role, video link, rating, filters, and a notes field for the takeaways I am collecting as I watch.
+The notes are for me first, but the watch list is open for anyone who wants a more deliberate route through the sessions.
 
-## Current state
+## Nerd talk
 
-I have not watched everything yet. I am adding notes as I go and will keep updating this link through the week.
-
-## Why it matters
-
-This is not free-time viewing. It is part of staying close to where design, product, brand, systems, AI workflows, and craft are moving.
+- Each session stores its title, speaker, role, source video, rating, and notes.
+- Filters make the growing watch list useful before every session has been reviewed.
+- Notes are added incrementally without holding the whole page for a “finished” edition.
+- The interface is deliberately dark and video-oriented, separate from the AIR portfolio shell.
+- The public page remains the canonical, continuously updated version.

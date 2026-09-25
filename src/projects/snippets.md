@@ -9,18 +9,18 @@ links:
   - { label: "Project link", url: "#" }
 ---
 
-## Why I built it
+## Real talk
 
-Weekly writing was arriving in individual inboxes, which meant everyone saw a slightly different slice and useful notes were easy to miss.
+Weekly writing was arriving in individual inboxes, so everyone saw a slightly different slice and the best notes were surprisingly easy to miss. I wanted one quiet place where I could simply read what the team was thinking.
 
-## What it is
+Snippets gathers the week’s contributions into a consistent page and shows only the people who actually wrote something. I open it, read, and keep my own notes on anything worth returning to. There is nothing for me to administer between editions.
 
-A private, shared reading page that gathers the week's contributions into one consistent view. It shows only the people who posted and keeps the writing easy to scan.
+It is less a publishing platform than a better reading habit for writing that already exists.
 
-## How it works
+## Nerd talk
 
-A scheduled local workflow reads the weekly digest, separates the contributions, rebuilds the page, and publishes the updated private view.
-
-## Day to day
-
-Nothing to administer. I open the page, read what people are thinking, and keep personal notes on anything worth returning to.
+- A scheduled local workflow reads the source digest and separates individual contributions.
+- The page is rebuilt from the current week rather than maintained by hand.
+- Empty contributors are omitted so the edition reflects only what was actually posted.
+- The generated reading view stays private.
+- Publishing is automated; interpretation and personal notes remain human.

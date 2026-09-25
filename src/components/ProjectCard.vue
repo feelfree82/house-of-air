@@ -1,85 +1,105 @@
 <template>
-  <router-link
-    :to="`/p/${project.slug}`"
-    class="project-row"
-    :class="project.status"
-  >
-    <div class="summary">
-      <div class="meta">
-        <StatusPill :status="project.status" />
-        <span v-if="project.shippedAt" class="date">{{ formatDate(project.shippedAt) }}</span>
+  <article class="project-row" :class="project.status">
+    <header class="project-header">
+      <div class="summary">
+        <div class="meta">
+          <StatusPill :status="project.status" />
+          <span v-if="project.shippedAt" class="date">{{ formatDate(project.shippedAt) }}</span>
+        </div>
+
+        <h2 class="title">{{ project.title }}</h2>
+        <p class="one-liner">{{ project.oneLiner }}</p>
       </div>
 
-      <h2 class="title">{{ project.title }}</h2>
-      <p class="one-liner">{{ project.oneLiner }}</p>
+      <a
+        v-if="primaryLink"
+        :href="primaryLink.url"
+        target="_blank"
+        rel="noopener"
+        class="preview-link"
+        :aria-label="`Preview ${project.title}`"
+      >
+        Preview URL <span aria-hidden="true">↗</span>
+      </a>
+    </header>
 
-      <div v-if="project.tags?.length" class="tags">
-        <span v-for="t in project.tags.slice(0, 4)" :key="t" class="tag">{{ t }}</span>
-      </div>
+    <div class="talks">
+      <section class="talk real-talk">
+        <h3>Real talk</h3>
+        <div class="talk-body" v-html="project.realTalkHtml"></div>
+      </section>
+
+      <section class="talk nerd-talk">
+        <h3>Nerd talk</h3>
+        <div class="talk-body" v-html="project.nerdTalkHtml"></div>
+      </section>
     </div>
 
-    <span class="open-arrow" aria-hidden="true">↗</span>
-  </router-link>
+    <footer v-if="otherLinks.length || project.tags?.length" class="project-footer">
+      <div v-if="project.tags?.length" class="tags" aria-label="Project tags">
+        <span v-for="t in project.tags" :key="t" class="tag">{{ t }}</span>
+      </div>
+
+      <nav v-if="otherLinks.length" class="related-links" :aria-label="`More ${project.title} links`">
+        <a v-for="link in otherLinks" :key="link.label" :href="link.url" target="_blank" rel="noopener">
+          {{ link.label }} <span aria-hidden="true">↗</span>
+        </a>
+      </nav>
+    </footer>
+  </article>
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import StatusPill from './StatusPill.vue'
 
-defineProps({
+const props = defineProps({
   project: { type: Object, required: true }
 })
 
+function isRealUrl(url) {
+  return url && url !== '#' && !url.startsWith('javascript:')
+}
+
+const validLinks = computed(() => (props.project.links || []).filter(link => isRealUrl(link.url)))
+const primaryLink = computed(() => validLinks.value[0] || null)
+const otherLinks = computed(() => validLinks.value.slice(1))
+
 function formatDate(iso) {
   if (!iso) return ''
-  const d = new Date(iso)
-  const month = d.toLocaleDateString('en-US', { month: 'short' })
-  const year = String(d.getFullYear()).slice(-2)
-  return `${month} '${year}`
+  const date = new Date(iso)
+  const month = date.toLocaleDateString('en-US', { month: 'short' })
+  return `${month} '${String(date.getFullYear()).slice(-2)}`
 }
 </script>
 
 <style scoped>
 .project-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 38px;
-  gap: clamp(20px, 2.6vw, 34px);
-  align-items: center;
-  padding: clamp(22px, 2.4vw, 28px) clamp(20px, 2.6vw, 30px);
+  padding: clamp(28px, 4.5vw, 56px);
   border: 1px solid var(--line);
-  border-radius: 18px;
-  background: color-mix(in oklch, var(--surface) 92%, transparent);
+  border-radius: 24px;
+  background: color-mix(in oklch, var(--surface) 94%, transparent);
   box-shadow: 0 1px 0 oklch(26% 0.03 255 / 0.06);
-  text-decoration: none;
-  color: inherit;
-  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 180ms ease, box-shadow 220ms ease;
   min-width: 0;
 }
 
-.project-row:hover {
-  transform: translateY(-3px);
-  border-color: var(--line-strong);
-  box-shadow: var(--shadow-card);
+.project-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(24px, 5vw, 72px);
+  align-items: start;
+  padding-bottom: clamp(24px, 3vw, 36px);
+  border-bottom: 1px solid var(--line);
 }
 
-.project-row:hover .title {
-  color: var(--accent-dark);
-}
-
-.project-row:focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 8px;
-}
-
-.summary {
-  min-width: 0;
-}
+.summary { min-width: 0; }
 
 .meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 14px;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .date {
@@ -91,24 +111,112 @@ function formatDate(iso) {
 }
 
 .title {
-  font-family: var(--font-serif);
-  font-size: clamp(1.9rem, 3.4vw, 3.15rem);
-  margin: 0 0 10px;
-  font-weight: 400;
-  letter-spacing: -0.035em;
-  line-height: 1;
+  margin: 0 0 12px;
   color: var(--text);
+  font-family: var(--font-serif);
+  font-size: clamp(2.15rem, 4.6vw, 4.6rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
   text-wrap: balance;
-  transition: color 180ms ease;
 }
 
 .one-liner {
-  max-width: 62ch;
-  margin: 0 0 18px;
+  max-width: 65ch;
+  margin: 0;
   color: var(--text-muted);
-  line-height: 1.6;
-  font-size: 1rem;
+  font-size: clamp(1rem, 1.4vw, 1.12rem);
+  line-height: 1.55;
   overflow-wrap: anywhere;
+}
+
+.preview-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0 5px;
+  color: var(--accent-dark);
+  border-bottom: 1px solid currentColor;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 160ms ease, gap 180ms var(--ease-out);
+}
+
+.preview-link:hover {
+  color: var(--text);
+  gap: 12px;
+}
+
+.talks {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  gap: clamp(40px, 7vw, 96px);
+  padding: clamp(30px, 4.5vw, 54px) 0;
+}
+
+.talk { min-width: 0; }
+
+.talk h3 {
+  margin: 0 0 18px;
+  font-family: var(--font-serif);
+  font-size: clamp(1.45rem, 2.4vw, 2rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.real-talk h3 { color: var(--accent); }
+.nerd-talk h3 { color: var(--plum); }
+
+.talk-body {
+  color: var(--text);
+  font-family: var(--font-serif);
+  font-size: clamp(1.08rem, 1.6vw, 1.32rem);
+  line-height: 1.58;
+}
+
+.nerd-talk .talk-body {
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.talk-body :deep(p) { margin: 0 0 0.9em; }
+.talk-body :deep(p:last-child) { margin-bottom: 0; }
+
+.talk-body :deep(ul) {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.talk-body :deep(li) {
+  position: relative;
+  margin: 0 0 12px;
+  padding-left: 18px;
+}
+
+.talk-body :deep(li)::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: var(--plum);
+}
+
+.talk-body :deep(a) {
+  color: var(--accent-dark);
+  text-underline-offset: 0.16em;
+}
+
+.project-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: end;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
 }
 
 .tags {
@@ -118,86 +226,54 @@ function formatDate(iso) {
 }
 
 .tag {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
+  padding: 4px 7px;
   color: var(--text-muted);
   background: var(--bg);
-  padding: 4px 7px;
+  border: 1px solid var(--line);
   border-radius: 4px;
-  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
 }
 
-.open-arrow {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--line);
-  border-radius: 50%;
+.related-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px 18px;
+}
+
+.related-links a {
   color: var(--text-muted);
-  font-size: 1rem;
-  transition: color 180ms ease, background 180ms ease, transform 220ms ease;
+  font-size: 0.78rem;
+  text-underline-offset: 0.2em;
 }
 
-.project-row:hover .open-arrow {
-  color: var(--surface);
-  background: var(--text);
-  border-color: var(--text);
-  transform: rotate(6deg);
-}
+.related-links a:hover { color: var(--accent-dark); }
 
-@media (max-width: 880px) {
-  .project-row {
-    grid-template-columns: minmax(0, 1fr) 38px;
-    align-items: start;
-  }
-
-  .summary {
-    grid-column: 1;
-  }
-
-  .open-arrow { grid-column: 2; }
-
-}
-
-@media (max-width: 560px) {
-  .project-row {
+@media (max-width: 800px) {
+  .talks {
     grid-template-columns: 1fr;
-    gap: 12px;
-    padding: 22px 18px 24px;
-    width: 100%;
-    max-width: none;
-    border-radius: 16px;
+    gap: 36px;
+  }
+}
+
+@media (max-width: 620px) {
+  .project-row {
+    padding: 24px 20px 26px;
+    border-radius: 18px;
     overflow-x: clip;
   }
 
-  .summary,
-  .open-arrow {
-    grid-column: 1;
-    max-width: 100%;
-  }
-
-  .open-arrow { display: none; }
+  .project-header { grid-template-columns: 1fr; gap: 16px; }
+  .preview-link { justify-self: start; }
 
   .title {
-    font-size: clamp(1.85rem, 10.5vw, 2.6rem);
-    line-height: 1.02;
-  }
-
-  .one-liner {
-    max-width: none;
-    margin-bottom: 16px;
-    font-size: 0.96rem;
-    line-height: 1.55;
-  }
-
-  .meta {
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-
-  .tag {
+    font-size: clamp(2.15rem, 12vw, 3.2rem);
     overflow-wrap: anywhere;
   }
+
+  .talks { padding: 30px 0; }
+  .project-footer { align-items: start; flex-direction: column; }
+  .related-links { justify-content: flex-start; }
 }
 </style>

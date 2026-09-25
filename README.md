@@ -2,7 +2,7 @@
 
 Amit’s Intelligent Resources.
 
-`AIR` is Amit Ayre’s digital desk drawer: a collection of small, useful tools, strange experiments, and useful systems. Each project is one markdown file with a screenshot; the homepage filters them by status (Live · Building · Paused · Archived · Idea).
+`AIR` is Amit Ayre’s digital desk drawer: a collection of small, useful tools, strange experiments, and useful systems. Each project is one markdown file with its own Real talk and Nerd talk sections; the homepage filters them by status (Live · Building · Paused · Archived · Idea).
 
 Useful things, made anyway.
 
@@ -18,7 +18,7 @@ npm run dev      # → http://localhost:5180
 ## Add a new project
 
 1. Create `src/projects/<slug>.md` with frontmatter (copy-paste shape from any existing file)
-2. Drop a screenshot at `public/screenshots/<slug>.svg` (or `.png`)
+2. Write both required sections: `## Real talk` and `## Nerd talk`
 3. That's it — Vite globs `src/projects/*.md` automatically, no registry to update
 
 ### Frontmatter shape
@@ -31,22 +31,21 @@ oneLiner: One sentence about what it does.
 status: live          # live | building | paused | archived | idea
 shippedAt: 2026-05-11
 tags: [tag, another, third]
-screenshot: /screenshots/my-project.svg
 links:
   - { label: "GitHub repo", url: "https://github.com/..." }
   - { label: "Live page", url: "https://..." }
 ---
 
-## Why I built it
+## Real talk
 
 ...
 
-## What it is
+## Nerd talk
 
-...
+- ...
 ```
 
-The first link in `links[]` becomes the **primary CTA** in the modal. Placeholder URLs (`#`) hide the CTA gracefully.
+The first valid link in `links[]` becomes the **Preview URL** in the project header. Additional valid links appear in the project footer. Placeholder URLs (`#`) stay hidden.
 
 ## Status taxonomy
 
@@ -92,10 +91,9 @@ GitHub Pages uses the same source with `VITE_BASE_PATH=/house-of-air/` so assets
     ├── main.js, App.vue, router.js
     ├── projects.js          # frontmatter parser + status sort
     ├── styles/main.css      # CSS vars, focus rings, reduced-motion
-    ├── projects/            # one .md per project — the only file you edit to add new content
+    ├── projects/            # one .md per project — includes Real talk and Nerd talk
     ├── components/
     │   ├── ProjectCard.vue
-    │   ├── ProjectModal.vue
     │   ├── StatusPill.vue
     │   └── StatusLegend.vue
     └── views/

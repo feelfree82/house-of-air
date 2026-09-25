@@ -9,18 +9,18 @@ links:
   - { label: "Live Heartbeats page", url: "https://amitdialpad.github.io/heartbeats/" }
 ---
 
-## Why I built it
+## Real talk
 
-Daily updates were getting scattered across chat, meetings, and half-remembered threads. I needed a calmer way to end the day: write the useful context once, send it where it needs to go, and keep a durable record.
+Daily updates kept dissolving across chat, meetings, and half-remembered threads. I wanted a calmer way to finish the day: write down what actually mattered once, send it where it needed to go, and keep a record I could still find later.
 
-## What it is
+Heartbeats opens straight into writing. There is no dashboard to clear, no status form to complete, and no ceremony pretending that the update is more complicated than it is. I write in plain language, add a screenshot or link when it helps, and press **Done**.
 
-A small app that opens directly into a writing surface. No dashboard first. No form fields. No status ceremony. Write the note in plain language, add screenshots or links if needed, then press **Done**.
+The habit is the product. It makes me state decisions and concerns clearly before they disappear into tomorrow.
 
-## How it works
+## Nerd talk
 
-Each update becomes a Markdown file, keeping the archive portable and easy to search. The writing flow stays deliberately small so it is useful every day instead of becoming another dashboard to maintain.
-
-## Why it matters
-
-The habit is the product. It gives me a place to state decisions or concerns clearly and keeps useful context from dissolving across conversations.
+- Every completed update is saved as portable Markdown.
+- The archive stays searchable without depending on a proprietary document format.
+- Writing is the default route; there is no dashboard before the primary task.
+- Links and screenshots can live alongside the text when context needs them.
+- The deliberately small workflow keeps daily maintenance close to zero.

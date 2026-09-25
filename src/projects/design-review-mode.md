@@ -11,24 +11,18 @@ links:
   - { label: "Beacon implementation (Dialpad access)", url: "https://github.com/dialpad/design/pull/120" }
 ---
 
-## Why I built it
+## Real talk
 
-Browser prototypes are useful because the artifact behaves like the real thing, but they do not naturally come with the convenient point-and-comment review flow people expect from design tools.
+Review is becoming part of my design workflow. Once I finish a prototype, I use the Review skill to push it from my local workspace to Beacon. It gives me one link that I can open myself or share with anyone.
 
-## What it is
+I usually review it first. I click through the real experience and comment directly wherever something breaks, the spacing feels wrong, or an interaction needs work. It feels like talking to the prototype: I point to the exact place and explain what I want to change.
 
-A lightweight review layer for live browser prototypes. A reviewer opens a special link, enters their name, then clicks an element or drags across an area to leave feedback. No GitHub account is needed.
+When I am finished, I simply tell Codex, “I’m done.” It gathers the open comments, works out the changes, updates the same prototype, verifies the deployed fixes, and gives me the same link back. Then I can repeat the cycle myself or invite someone else into it.
 
-Comments stay attached to the screen and context where they were added. Pins use each reviewer’s first-name initial and color, so feedback from several people is still easy to scan.
+## Nerd talk
 
-## For the prototype owner
-
-Every screen’s feedback appears in one inbox. Marking a comment Done removes its pin from the prototype but keeps it in the inbox as history. Hosted comments are retained for 90 days.
-
-## Built to travel
-
-The widget is framework-neutral, MIT licensed, and can be added to any website its owner can edit. A small manifest generates one shared review session with a route-specific link for each important screen.
-
-## Current state
-
-Live as an open-source project with a hosted demo and comment service. The Beacon billing prototype is the first full implementation; its implementation PR requires Dialpad GitHub access.
+- The commenting tool upgrades itself through a version manifest.
+- Repository, branch, pull request, session, and original-link context are remembered privately.
+- Only unhandled comments are retrieved; updates return to the same pull request and URL.
+- A comment is recorded as implemented only after its deployed fix is verified. The reviewer still decides when to mark it Done.
+- Concurrent agents cannot overwrite one another’s progress, and mismatched repositories, sessions, URLs, comment IDs, or commit SHAs are rejected.

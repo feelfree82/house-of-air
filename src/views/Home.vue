@@ -1,6 +1,6 @@
 <template>
   <a href="#main-grid" class="skip-link">Skip to projects</a>
-  <div class="home" :inert="!!modalProject">
+  <div class="home">
     <header class="hero">
       <svg class="hero-air-map" viewBox="0 0 1200 520" preserveAspectRatio="none" aria-hidden="true" focusable="false">
         <path class="hero-air-current" d="M-120 128 C 126 36 288 188 492 116 S 826 42 1018 126 S 1264 196 1370 70" />
@@ -63,30 +63,15 @@
       <p>Useful things, made anyway.</p>
     </footer>
 
-    <ProjectModal :project="modalProject" @close="closeModal" />
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onUnmounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { projects, STATUSES, getProject } from '../projects.js'
+import { projects, STATUSES } from '../projects.js'
 import ProjectCard from '../components/ProjectCard.vue'
 import StatusLegend from '../components/StatusLegend.vue'
-import ProjectModal from '../components/ProjectModal.vue'
-
-const route = useRoute()
-const router = useRouter()
 const currentYear = new Date().getFullYear()
-
-const modalProject = computed(() => {
-  const slug = route.params.slug
-  return slug ? getProject(slug) : null
-})
-
-function closeModal() {
-  router.push({ name: 'home' })
-}
 
 const activeFilter = ref('all')
 const airDotReacting = ref(false)

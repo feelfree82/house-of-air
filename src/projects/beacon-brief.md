@@ -9,18 +9,18 @@ links:
   - { label: "Beacon Brief page", url: "https://amitdialpad.github.io/design-pair-sessions/#beacon-brief" }
 ---
 
-## Why I built it
+## Real talk
 
-Release notes are useful, but they are rarely written for the people making everyday design decisions. Important changes can easily disappear inside a long changelog.
+Release notes are useful, but they are rarely written for the person making an everyday design decision. The one change that matters can disappear inside a long technical changelog, and expecting everyone to keep checking it is wishful thinking.
 
-## What it is
+Beacon Brief turns the latest design-system changes into a short weekly note: what changed, why it matters, and what someone might need to do differently. I add context only when a change genuinely needs interpretation. Otherwise the edition prepares itself and is waiting at the start of the week.
 
-A short weekly digest that translates recent design-system changes into plain language: what changed, why it matters, and what someone may need to do differently.
+The automation handles repetition; the framing still sounds like a person helping another person.
 
-## How it works
+## Nerd talk
 
-A scheduled workflow gathers the latest published changes, combines them with any notes I add, and produces a readable web and email edition. The repetitive work is automated while the framing stays human.
-
-## Day to day
-
-I add context only when a change needs it. Otherwise the brief prepares itself and is ready to read at the start of the week.
+- A scheduled workflow gathers the latest published design-system changes.
+- Release metadata is combined with optional human notes before an edition is generated.
+- The same source produces readable web and email formats.
+- Each item is translated into change, impact, and next-action language.
+- Manual input is optional, so a quiet week does not create editorial maintenance.
