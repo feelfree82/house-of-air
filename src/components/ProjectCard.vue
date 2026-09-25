@@ -8,7 +8,10 @@
         </div>
 
         <h2 class="title">{{ project.title }}</h2>
-        <p class="one-liner">{{ project.oneLiner }}</p>
+        <p class="one-liner">
+          <span class="tldr">TL;DR</span>
+          <span>{{ project.oneLiner }}</span>
+        </p>
       </div>
 
       <a
@@ -122,12 +125,25 @@ function formatDate(iso) {
 }
 
 .one-liner {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
   max-width: 65ch;
   margin: 0;
   color: var(--text-muted);
   font-size: clamp(1rem, 1.4vw, 1.12rem);
   line-height: 1.55;
   overflow-wrap: anywhere;
+}
+
+.tldr {
+  flex: 0 0 auto;
+  color: var(--accent-dark);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .preview-link {
@@ -270,6 +286,12 @@ function formatDate(iso) {
   .title {
     font-size: clamp(2.15rem, 12vw, 3.2rem);
     overflow-wrap: anywhere;
+  }
+
+  .one-liner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
   }
 
   .talks { padding: 30px 0; }
