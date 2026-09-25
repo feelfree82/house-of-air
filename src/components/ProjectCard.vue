@@ -8,10 +8,7 @@
         </div>
 
         <h2 class="title">{{ project.title }}</h2>
-        <p class="one-liner">
-          <span class="tldr">TL;DR</span>
-          <span>{{ project.oneLiner }}</span>
-        </p>
+        <p class="one-liner">{{ project.oneLiner }}</p>
       </div>
 
       <a
@@ -125,32 +122,12 @@ function formatDate(iso) {
 }
 
 .one-liner {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 10px;
-  align-items: start;
-  width: fit-content;
-  max-width: 76ch;
+  max-width: 65ch;
   margin: 0;
-  padding: 9px 12px 10px;
   color: var(--text-muted);
-  background: color-mix(in oklch, var(--sun) 28%, var(--surface));
-  border-left: 3px solid var(--accent);
-  border-radius: 2px 7px 7px 2px;
-  font-family: var(--font-mono);
-  font-size: clamp(0.72rem, 1vw, 0.82rem);
-  letter-spacing: -0.012em;
-  line-height: 1.5;
+  font-size: clamp(1rem, 1.4vw, 1.12rem);
+  line-height: 1.55;
   overflow-wrap: anywhere;
-}
-
-.tldr {
-  flex: 0 0 auto;
-  color: var(--accent-dark);
-  font-size: 0.68rem;
-  font-weight: 650;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
 }
 
 .preview-link {
@@ -294,8 +271,6 @@ function formatDate(iso) {
     font-size: clamp(2.15rem, 12vw, 3.2rem);
     overflow-wrap: anywhere;
   }
-
-  .one-liner { width: 100%; }
 
   .talks { padding: 30px 0; }
   .project-footer { align-items: start; flex-direction: column; }
