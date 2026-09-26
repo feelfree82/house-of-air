@@ -14,7 +14,7 @@ links:
 
 People rarely pause their work because a separate changelog might contain something relevant. Usually they discover a design-system change only after the old pattern stops behaving the way they expect.
 
-I am building a small “What’s New” drawer inside the tool itself. It brings the useful part of recent releases to the place where people are already working, in short explanations rather than a wall of technical notes.
+I built a small “What’s New” drawer inside the tool itself. It brings the useful part of recent releases to the place where people are already working, in short explanations rather than a wall of technical notes.
 
 It should feel like a considerate heads-up, not another inbox asking for attention.
 
