@@ -6,7 +6,7 @@ status: live
 shippedAt: 2026-09-28
 tags: [developer-tool, api, fintech, open-source]
 links:
-  - { label: "Explore the catalog", url: "https://feelfree82.github.io/bank-logo-catalog/" }
+  - { label: "Explore the catalog", url: "https://banklogos.amitayre.com/" }
   - { label: "Source on GitHub", url: "https://github.com/feelfree82/bank-logo-catalog" }
 ---
 
