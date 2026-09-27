@@ -20,7 +20,7 @@ The long-term goal is simple: any bank, anywhere, through one API. The first pub
 
 ## Nerd talk
 
-- 765 current release-candidate records across two country catalogs.
+- 765 public beta records across two country catalogs.
 - Compact name-and-alias indexes support local search without downloading images.
 - Stable institution IDs resolve to individual JSON records and revisioned logo URLs.
 - India records include separate compact icons and wordmarks when both are available.
